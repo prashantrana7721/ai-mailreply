@@ -1,37 +1,33 @@
-﻿# AI-Summarizer Assistant
+﻿# AI-Email-Reply-Assistant
 
-A Powerful Browser-Based Tool Designed To Streamline Your Knowledge Processing . Leveraging The Power Of Google's Gemini AI , This Application Can Summarize Long Articles , Extract Key Points And Perform Other Content Operations Directly In Your Browser .
+An intelligent email reply assistant that automatically generates context-aware email responses using Google's Gemini AI . This tool is a browser-based application with a Chrome extension for seamless integration with your email client .
 
 ---
 
 ## Live Demo & Screenshots
 
-Here Is A Look At The AI-Summarizer In Action , Summarizing A News Article About Cheteshwar Pujara's Retirement And A View Of The Backend API Being Tested With Postman .
+Here is a glimpse of the AI-Email-Reply-Assistant in action , generating a professional reply for a production incident escalation email .
 
-#### Frontend in Action
+#### Application In Action
 
-*The Application's Sidebar Seamlessly Integrates With Any Webpage Allowing For On-The-Fly Text Summarization .*
-<img src="images/news.png" alt="News">
-<img src="images/extension.png" alt="Extension Working">
+<img width="1054" height="737" alt="Screenshot 2025-08-27 at 6 18 30 PM" src="https://github.com/user-attachments/assets/04eb0626-fa32-4189-98ad-458cb509551b" />
+
+#### Request Response Test
+
+<img width="1036" height="746" alt="Screenshot 2025-08-27 at 6 59 58 PM" src="https://github.com/user-attachments/assets/8ceef7ac-f607-4f95-9803-3ea4bb06a8b5" />
 
 
 <br/>
-
-#### Backend API Testing
-*The Robust Spring Boot Backend Handles The Core Logic , Communicating With The Gemini API To Process Content . The Endpoint Is Tested And Validated Using Postman .*
-<img src="images/request.png" alt="Api Testing Request">
-<img src="images/response.png" alt="Api Testing Response">
-
 
 ---
 
 ## Core Features
 
-*   **AI-Powered Summarization:** Instantly Condense Long Articles And Texts Into Concise Summaries .
-*   **Seamless Integration:** Works As A Simple And Intuitive Sidebar In Your Browser .
-*   **Extensible Operations:** The Backend Is Designed To Easily Support More Operations In The Future ( e.g - Keyword Extraction , Tone Analysis ) .
-*   **Robust Backend:** Built With Java And Spring Boot For A Scalable And Reliable Service .
-*   **RESTful API:** A clear And Well-Defined API For Processing Requests .
+*   **AI-Powered Replies:** Generates intelligent and relevant email replies based on the original email's content .
+*   **Contextual Awareness:** The assistant analyzes the original email to create a reply that is both accurate and contextually appropriate .
+*   **Tone Selection:** Users can select the tone of the reply ( e.g., Professional , Casual , Friendly ) .
+*   **Seamless Integration:** A Chrome extension provides a smooth user experience, integrating directly with your email client's interface .
+*   **Robust Backend:** Built with Java and Spring Boot for a scalable and reliable service .
 
 ---
 
@@ -41,8 +37,8 @@ This Project Is Built With A Modern And Robust Set Of Technologies :
 
 *   **Back-End:** Java 17 , Spring Boot , Spring Web , Maven
 *   **AI Service:** Google Gemini Pro API
-*   **Front-End:** HTML , CSS , JavaScript
-*   **Testing & Tools:** Postman , Git , IntelliJ IDEA
+*   **Front-End:** React + Vite , HTML , CSS , JavaScript
+*   **Testing & Tools:** Postman , Git , IntelliJ IDEA , VS Code
 
 ---
 
@@ -54,6 +50,7 @@ To Get A Local Copy Up And Running , Follow These Simple Steps :
 
 *   **Java Development Kit (JDK) 17** or newer.
 *   **Apache Maven**
+*   **Node.js & npm**
 *   **Git** for version control.
 *   A **Google Gemini API Key**. You can get one from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
@@ -61,9 +58,8 @@ To Get A Local Copy Up And Running , Follow These Simple Steps :
 
 1.  **Clone The Repository :**
     ```sh
-    git clone https://github.com/your_username/ai-summarizer.git
-    cd ai-summarizer
-    cd aisummarizer-assistant-backend
+    git clone https://github.com/your_username/ai-mailreply.git
+    cd ai-mailreply
     ```
 
 2.  **Configure Your API Key :**
@@ -83,18 +79,24 @@ To Get A Local Copy Up And Running , Follow These Simple Steps :
 ### Running The Application
 
 1.  **Run The Spring Boot Back-End:**
-    Use Maven To Run The Application . The Server Will Start On `localhost:8080` .
+    Navigate to the backend directory .
+
     ```sh
+    cd email-writer-sb
     chmod +x mvnw
     ./mvnw spring-boot:run
     ```
+    The Server Will Start On `localhost:8080` .
 
-2.  **Load The Front-End :**
-    *This Section Depends On Your Front-End Implementation . For A Browser Extension :*
-    *   Open Your Browser ( e.g - Chrome ) .
-    *   Navigate To `chrome://extensions` .
-    *   Enable "Developer Mode".
-    *   Click "Load Unpacked" And Select The Front-End Directory Of This Project .
+2.  **Run The React Front-End:**
+    Open a new terminal and navigate to the frontend directory .
+
+    ```sh
+    cd email-writer-ext
+    npm install
+    npm run dev
+    ```
+    The frontend will be available at `localhost:5173` .
 
 ---
 
@@ -103,27 +105,30 @@ To Get A Local Copy Up And Running , Follow These Simple Steps :
 The Primary API End-Point For The Application Is Documented Below .
 
 #### Process Text
-- **POST** `/api/research/process`
-- **Description:** Sends Content And A Requested Operation To The Backend For AI Processing .
+- **POST** `/api/email/generate`
+- **Description:** Sends the original email content and a desired tone to the backend for AI processing .
 - **Request Body:**
   ```json
   {
-      "content": "Your Long Text To Be Processed Goes Here...",
-      "operation": "summarize"
+  "emailContent": "Your original email text goes here...",
+  "tone": "professional"
   }
   ```
 - **Success Response (200 OK):**
   ```json
   {
-      "result": "The Summarized Version Of Your Text Appears Here ."
+  "reply": "The AI-generated reply will be in this field."
   }
   ```
 ## Future Roadmap
 
-This Project Is A Living Work And I'm Excited About Its Future Potential . Some Features I'm Considering For Future Versions Include :
+Some Features I'm Considering For Future Versions Include :
 
-*   **Keyword Extraction:** Automatically Identify And List The Most Important Terms In A Text .
-*   **Multi-Language Support:** Enable Summarization For Languages Other Than English .
-*   **Custom Prompts:** Allow Users To Define Their Own Operations Beyond "summarize" ( e.g - " Explain This To Me Like I'm Five " ) . 
+*   **Multi-language Support:** Enable reply generation for languages other than English .
+*   **Custom Tones:** Allow users to define their own custom tones beyond the pre-defined options .
+*   **Sentiment Analysis:** Analyze the sentiment of the original email to suggest an appropriate reply tone automatically .
+*   **Calendar Integration:** Automatically detect meeting requests and suggest adding them to the user's calendar .
+*   **Attachments:** The ability to handle and reference file attachments in replies .
+*   **Desktop App:** Expand the application to a desktop version using frameworks like Electron .
 ---
 
